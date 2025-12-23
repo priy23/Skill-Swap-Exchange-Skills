@@ -33,7 +33,7 @@ const ScheduleMeetingModal: React.FC<ScheduleMeetingModalProps> = ({
             // Combine date and time
             const startDateTime = new Date(`${date}T${time}`);
 
-            const res = await fetch('http://localhost:5000/api/meetings/schedule', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/meetings/schedule`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

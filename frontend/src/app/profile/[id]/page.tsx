@@ -23,7 +23,7 @@ export default function PublicProfile() {
 
     const fetchProfile = async (token: string) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/users/${params.id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/users/${params.id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.ok) {
@@ -43,7 +43,7 @@ export default function PublicProfile() {
     const handleConnect = async () => {
         if (!currentUser) return;
         try {
-            const res = await fetch('http://localhost:5000/api/requests', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/requests`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

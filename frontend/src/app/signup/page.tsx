@@ -48,7 +48,7 @@ export default function Signup() {
                 skillsToLearn: skillsToLearn.split(',').map((skill) => skill.trim())
             };
 
-            const res = await axios.post('http://localhost:5000/api/auth/signup', userData);
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/signup`, userData);
 
             if (res.data) {
                 localStorage.setItem('user', JSON.stringify(res.data));

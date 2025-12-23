@@ -35,7 +35,7 @@ export default function Dashboard() {
             const parsedUser = JSON.parse(storedUser);
             setUser(parsedUser);
 
-            const newSocket = io('http://localhost:5000');
+            const newSocket = io(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
             setSocket(newSocket);
 
             newSocket.emit('join_room', parsedUser._id);
@@ -77,7 +77,7 @@ export default function Dashboard() {
     const fetchMatches = async (token: string) => {
         setLoading(true);
         try {
-            const res = await fetch('http://localhost:5000/api/matches', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/matches`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -91,7 +91,7 @@ export default function Dashboard() {
 
     const fetchRequests = async (token: string) => {
         try {
-            const res = await fetch('http://localhost:5000/api/requests', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/requests`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -103,7 +103,7 @@ export default function Dashboard() {
 
     const fetchConnections = async (token: string) => {
         try {
-            const res = await fetch('http://localhost:5000/api/requests/accepted', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/requests/accepted`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -119,7 +119,7 @@ export default function Dashboard() {
         ));
 
         try {
-            const res = await fetch('http://localhost:5000/api/requests', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/requests`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ export default function Dashboard() {
         }
 
         try {
-            const res = await fetch(`http://localhost:5000/api/requests/${requestId}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/requests/${requestId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

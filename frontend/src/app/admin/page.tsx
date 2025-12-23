@@ -42,7 +42,7 @@ export default function AdminDashboard() {
 
     const fetchUsers = async (token: string) => {
         try {
-            const { data } = await axios.get('http://localhost:5000/api/admin/users', {
+            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/admin/users`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUsers(data);
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
         const userData = JSON.parse(storedUser);
 
         try {
-            await axios.delete(`http://localhost:5000/api/admin/users/${deleteId}`, {
+            await axios.delete(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/admin/users/${deleteId}`, {
                 headers: { Authorization: `Bearer ${userData.token}` }
             });
             setUsers(users.filter(u => u._id !== deleteId));

@@ -33,7 +33,7 @@ export default function Whiteboard() {
     }, [id, router]);
 
     const socketInitializer = async (userData: any) => {
-        socket = io('http://localhost:5000');
+        socket = io(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
         socket.on('connect', () => {
             socket.emit('join_room', userData._id);
         });

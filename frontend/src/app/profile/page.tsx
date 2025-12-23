@@ -64,7 +64,7 @@ export default function Profile() {
 
         try {
             // NOTE: You might need to adjust the URL if your backend port is different
-            const res = await fetch('http://localhost:5000/api/upload', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/upload`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${user.token}`,
@@ -76,7 +76,7 @@ export default function Profile() {
                 const data = await res.text();
                 // backend returns path like /uploads/image.jpg
                 // We construct full URL. 
-                const fullUrl = `http://localhost:5000${data}`;
+                const fullUrl = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${data}`;
                 setFormData((prev) => ({ ...prev, profilePic: fullUrl }));
                 showToast('Profile picture uploaded!', 'success');
             } else {
@@ -103,7 +103,7 @@ export default function Profile() {
             // Process achievements (newline separated)
             const achievementsArray = formData.achievements.split('\n').map(s => s.trim()).filter(s => s);
 
-            const res = await fetch('http://localhost:5000/api/auth/profile', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

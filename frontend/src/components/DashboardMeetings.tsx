@@ -25,7 +25,7 @@ const DashboardMeetings: React.FC<{ onJoinCall?: (partnerId: string) => void }> 
             const user = JSON.parse(storedUser);
 
             try {
-                const { data } = await axios.get(`http://localhost:5000/api/meetings/user/${user._id}`);
+                const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/meetings/user/${user._id}`);
                 setMeetings(data);
                 setLoading(false);
             } catch (error) {

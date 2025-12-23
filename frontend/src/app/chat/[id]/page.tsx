@@ -71,7 +71,7 @@ export default function Chat() {
 
     const fetchMessages = async (token: string) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/chat/${id}`, {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/chat/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setMessages(res.data);
@@ -91,7 +91,7 @@ export default function Chat() {
             // If not, we might need to rely on passed data or create it.
             // Using a safe fallback if the dedicated endpoint isn't ready, 
             // but task.md said it IS ready.
-            const res = await axios.get(`http://localhost:5000/api/users/${id}`, {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/users/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPartner(res.data);
@@ -143,7 +143,7 @@ export default function Chat() {
                     Authorization: `Bearer ${user.token}`
                 }
             }
-            const { data } = await axios.post('http://localhost:5000/api/upload', formData, config);
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/upload`, formData, config);
 
             // Send message with file URL
             const msgData = {
@@ -162,7 +162,7 @@ export default function Chat() {
     }
 
     const socketInitializer = async (userData: any, partnerId: string) => {
-        socketRef.current = io('http://localhost:5000');
+        socketRef.current = io(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
 
         socketRef.current.on('connect', () => {
             console.log('Connected to socket');
@@ -234,7 +234,7 @@ export default function Chat() {
     const submitReview = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/reviews', {
+            await axios.post(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/reviews`, {
                 revieweeId: id,
                 rating,
                 comment
@@ -475,10 +475,10 @@ export default function Chat() {
                             {msg.fileUrl ? (
                                 msg.fileUrl.match(/\.(jpeg|jpg|png|gif)$/i) ? (
                                     <div className="mb-1 rounded-xl overflow-hidden border border-white/20">
-                                        <img src={`http://localhost:5000${msg.fileUrl}`} alt="shared" className="max-w-full h-auto object-cover" />
+                                        <img src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${msg.fileUrl}`} alt="shared" className="max-w-full h-auto object-cover" />
                                     </div>
                                 ) : (
-                                    <a href={`http://localhost:5000${msg.fileUrl}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3 bg-black/10 dark:bg-white/10 rounded-xl hover:bg-black/20 transition mb-1">
+                                    <a href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${msg.fileUrl}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3 bg-black/10 dark:bg-white/10 rounded-xl hover:bg-black/20 transition mb-1">
                                         <div className="p-2 bg-white dark:bg-gray-900 rounded-lg flex-shrink-0">
                                             <Paperclip className="w-5 h-5 text-indigo-500" />
                                         </div>
