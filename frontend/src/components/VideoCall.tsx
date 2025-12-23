@@ -322,6 +322,12 @@ const VideoCall: React.FC<VideoCallProps> = ({ socket, user, partnerId, onClose,
     };
 
     const handleScreenShare = async () => {
+        // Feature Check for Mobile/Unsupported Browsers
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+            alert("Screen sharing is not supported on this device/browser. Please try a desktop browser.");
+            return;
+        }
+
         if (isScreenSharing) {
             stopScreenShare();
         } else {
@@ -349,8 +355,13 @@ const VideoCall: React.FC<VideoCallProps> = ({ socket, user, partnerId, onClose,
                 // Handle system "Stop Sharing" floating bar
                 screenTrack.onended = () => stopScreenShare();
                 setIsScreenSharing(true);
-            } catch (err) {
+            } catch (err: any) {
                 console.error("Failed to share screen", err);
+                if (err.name === 'NotAllowedError') {
+                    // User cancelled, do nothing
+                } else {
+                    alert("Unable to start screen sharing. " + (err.message || ""));
+                }
             }
         }
     };
