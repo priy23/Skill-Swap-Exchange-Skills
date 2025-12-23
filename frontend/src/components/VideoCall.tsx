@@ -4,7 +4,7 @@ import Whiteboard from "./Whiteboard";
 import axios from 'axios';
 import {
     SwitchCamera, Mic, MicOff, Video, VideoOff,
-    MonitorUp, X, Phone, PenTool, MessageSquare, User, ArrowLeft
+    MonitorUp, X, Phone, PenTool, MessageSquare, User, ArrowLeft, MoreVertical
 } from 'lucide-react';
 
 interface VideoCallProps {
@@ -38,6 +38,7 @@ const VideoCall: React.FC<VideoCallProps> = ({ socket, user, partnerId, onClose,
     const [isCalling, setIsCalling] = useState(false);
     const [callAccepted, setCallAccepted] = useState(false);
     const [callEnded, setCallEnded] = useState(false);
+    const [showMoreControls, setShowMoreControls] = useState(false);
 
     // Call Metadata
     const [caller, setCaller] = useState("");
@@ -536,43 +537,70 @@ const VideoCall: React.FC<VideoCallProps> = ({ socket, user, partnerId, onClose,
                         {/* In-Call Controls */}
                         {(isCalling || callAccepted) && (
                             <>
-                                <button onClick={toggleAudio} className={`p-4 rounded-full ${isAudioMuted ? 'bg-white text-black' : 'bg-gray-800/80 text-white'} transition-colors`}>
-                                    {isAudioMuted ? <MicOff className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
+                                {/* Mic Toggle */}
+                                <button onClick={toggleAudio} className={`p-3 md:p-4 rounded-full ${isAudioMuted ? 'bg-white text-black' : 'bg-gray-800/80 text-white'} transition-colors`}>
+                                    {isAudioMuted ? <MicOff className="w-5 h-5 md:w-6 md:h-6" /> : <Mic className="w-5 h-5 md:w-6 md:h-6" />}
                                 </button>
 
-                                <button onClick={toggleVideo} className={`p-4 rounded-full ${isVideoStopped ? 'bg-white text-black' : 'bg-gray-800/80 text-white'} transition-colors`}>
-                                    {isVideoStopped ? <VideoOff className="w-6 h-6" /> : <Video className="w-6 h-6" />}
+                                {/* Video Toggle */}
+                                <button onClick={toggleVideo} className={`p-3 md:p-4 rounded-full ${isVideoStopped ? 'bg-white text-black' : 'bg-gray-800/80 text-white'} transition-colors`}>
+                                    {isVideoStopped ? <VideoOff className="w-5 h-5 md:w-6 md:h-6" /> : <Video className="w-5 h-5 md:w-6 md:h-6" />}
                                 </button>
 
-                                <button onClick={handleScreenShare} className={`p-4 rounded-full ${isScreenSharing ? 'bg-blue-500 text-white' : 'bg-gray-800/80 text-white'} transition-colors shadow-lg`}>
-                                    <MonitorUp className="w-6 h-6" />
-                                </button>
-
-                                {videoDevices.length > 1 && (
-                                    <button onClick={switchCamera} className="p-4 rounded-full bg-gray-800/80 text-white transition-colors">
-                                        <SwitchCamera className="w-6 h-6" />
-                                    </button>
-                                )}
-
-                                <div className="w-px h-8 bg-white/20 mx-1"></div>
-
-                                <button onClick={() => {
-                                    const newState = !isWhiteboardOpen;
-                                    setIsWhiteboardOpen(newState);
-                                    const targetId = whiteboardReceiverId;
-                                    if (targetId) {
-                                        console.log("🖊️ Toggling Whiteboard for:", targetId);
-                                        socket.emit("toggleWhiteboard", { to: targetId, isOpen: newState });
-                                    } else {
-                                        console.warn("⚠️ No target ID for whiteboard toggle");
-                                    }
-                                }} className={`p-4 rounded-full ${isWhiteboardOpen ? 'bg-indigo-500 text-white' : 'bg-gray-800/80 text-white'} transition-colors`}>
-                                    <PenTool className="w-6 h-6" />
-                                </button>
-
-                                <button onClick={() => leaveCall(true)} className="p-4 rounded-full bg-red-500 hover:bg-red-600 text-white transition-colors">
+                                {/* End Call - Centered/Prominent */}
+                                <button onClick={() => leaveCall(true)} className="p-3 md:p-4 rounded-full bg-red-500 hover:bg-red-600 text-white transition-colors">
                                     <Phone className="w-6 h-6 transform rotate-[135deg]" />
                                 </button>
+
+                                {/* More Options (3 Dots) */}
+                                <div className="relative">
+                                    <button
+                                        onClick={() => setShowMoreControls(!showMoreControls)}
+                                        className={`p-3 md:p-4 rounded-full ${showMoreControls ? 'bg-indigo-500 text-white' : 'bg-gray-800/80 text-white'} transition-colors`}
+                                    >
+                                        <MoreVertical className="w-5 h-5 md:w-6 md:h-6" />
+                                    </button>
+
+                                    {/* Dropdown Menu */}
+                                    {showMoreControls && (
+                                        <div className="absolute bottom-full right-0 mb-4 w-48 bg-gray-900 border border-white/10 rounded-2xl shadow-xl overflow-hidden p-1 flex flex-col gap-1 z-50 animate-in fade-in slide-in-from-bottom-2">
+                                            {/* Screen Share */}
+                                            <button
+                                                onClick={() => { handleScreenShare(); setShowMoreControls(false); }}
+                                                className={`flex items-center gap-3 px-4 py-3 rounded-xl w-full text-left transition-colors ${isScreenSharing ? 'bg-blue-500/20 text-blue-400' : 'text-gray-200 hover:bg-white/10'}`}
+                                            >
+                                                <MonitorUp className="w-5 h-5" />
+                                                <span className="text-sm font-medium">Screen Share</span>
+                                            </button>
+
+                                            {/* Switch Camera */}
+                                            {videoDevices.length > 1 && (
+                                                <button
+                                                    onClick={() => { switchCamera(); setShowMoreControls(false); }}
+                                                    className="flex items-center gap-3 px-4 py-3 rounded-xl w-full text-left text-gray-200 hover:bg-white/10 transition-colors"
+                                                >
+                                                    <SwitchCamera className="w-5 h-5" />
+                                                    <span className="text-sm font-medium">Switch Camera</span>
+                                                </button>
+                                            )}
+
+                                            {/* Whiteboard */}
+                                            <button
+                                                onClick={() => {
+                                                    const newState = !isWhiteboardOpen;
+                                                    setIsWhiteboardOpen(newState);
+                                                    const targetId = whiteboardReceiverId;
+                                                    if (targetId) socket.emit("toggleWhiteboard", { to: targetId, isOpen: newState });
+                                                    setShowMoreControls(false);
+                                                }}
+                                                className={`flex items-center gap-3 px-4 py-3 rounded-xl w-full text-left transition-colors ${isWhiteboardOpen ? 'bg-indigo-500/20 text-indigo-400' : 'text-gray-200 hover:bg-white/10'}`}
+                                            >
+                                                <PenTool className="w-5 h-5" />
+                                                <span className="text-sm font-medium">Whiteboard</span>
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </>
                         )}
 
