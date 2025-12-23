@@ -12,9 +12,20 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
+// Helper to normalize CLIENT_URL (ensures protocol exists)
+const getClientUrl = () => {
+    const url = process.env.CLIENT_URL || "http://localhost:3000";
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+        return url;
+    }
+    return `https://${url}`;
+};
+
+const clientUrl = getClientUrl();
+
 // Middleware
 app.use(cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: clientUrl,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
@@ -23,7 +34,7 @@ app.use(express.json());
 // Socket.io Setup
 const io = new Server(server, {
     cors: {
-        origin: process.env.CLIENT_URL || "http://localhost:3000",
+        origin: clientUrl,
         methods: ["GET", "POST"]
     }
 });
