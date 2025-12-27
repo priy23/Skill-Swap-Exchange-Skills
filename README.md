@@ -7,7 +7,7 @@
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Now-success?style=for-the-badge&logo=vercel&logoColor=white)](https://skill-swap-by-sonu.vercel.app/)
 
 **Skill Swap** is a dynamic platform designed to connect individuals who want to exchange skills. Whether you want to learn coding in exchange for guitar lessons or swap language practice, Skill Swap makes it easy. Built with the MERN stack and enhanced with real-time features like chat, video calls, and a collaborative whiteboard.
-
+*   **LIVE LINK**: [https://skill-swap-by-sonu.vercel.app/](https://skill-swap-by-sonu.vercel.app/)
 ---
 
 ## 🚀 Features
