@@ -139,6 +139,20 @@ The app should now be running at `http://localhost:3000`.
 | **Admin** | `/api/admin` | Administrative actions |
 
 ---
+## Screenshot
+<img width="2879" height="1621" alt="Screenshot 2025-12-27 175502" src="https://github.com/user-att<img width="2863" height="1619" alt="Screenshot 2025-12-27 175547" src="https://github.com/user-attachments/assets/de338851-c294-4491-9e17-08ce80fde39d" />
+achments/assets/1c98d725-7995-498b-80a6-c4168dcc9979" />
+<img width="2615" height="1479" alt="Screenshot 2025-12-27 175603" src="https://github.com/user-attachments/assets/45131041-349d-4601-b899-f0c5158985a4" />
+<img width="2825" height="1621" alt="Screenshot 2025-12-27 175620" src="https://github.com/user-attachments/assets/c8f7540e-095c-43c7-9a7f-35c5a5efc796" />
+<img width="2879" height="1626" alt="Screenshot 2025-12-27 175638" src="https://github.com/user-attachments/assets/0c711cc6-7749-440b-b8e5-394ef0fd0698" />
+<img width="2878" height="1623" alt="Screenshot 2025-12-27 175652" src="https://github.com/user-attachments/assets/bbf8a1a9-ff03-401b-af94-24483c6bd8d1" />
+<img width="2833" height="1524" alt="Screenshot 2025-12-27 175709" src="https://github.com/user-attachments/assets/18aebc99-3e09-45ab-8998-27725cfe2208" />
+<img width="2879" height="1612" alt="Screenshot 2025-12-27 175745" src="https://github.com/user-attachments/assets/3fd86004-91e4-4fd5-a7cb-e0651d7789cc" />
+<img width="2868" height="1607" alt="Screenshot 2025-12-27 175827" src="https://github.com/user-attachments/assets/c57d8e2d-5a07-4eda-9a67-a71516b0fafc" />
+<img width="2703" height="1582" alt="Screenshot 2025-12-27 175840" src="https://github.com/user-attachments/assets/128a0c1e-19a4-4b92-82bb-e9c839aaed07" />
+<img width="2313" height="1608" alt="Screenshot 2025-12-27 175927" src="https://github.com/user-attachments/assets/d2669cb8-97f3-4585-b59d-0148efa2edb1" />
+
+---
 
 ## 🤝 Contributing
 
