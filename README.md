@@ -1,4 +1,4 @@
-<img width="2879" height="1621" alt="Screenshot 2025-12-27 175502" src="https://github.com/user-attachments/assets/c63f22f1-3b6a-4b71-a8f1-5245bffcec7d" /><img width="2879" height="1621" alt="Screenshot 2025-12-27 175502" src="https://github.com/user-attachments/assets/3946cad6-6b56-4d01-9a30-ea36c5a4dba3" /># 🔄 Skill Swap
+# 🔄 Skill Swap
 
 ![MERN Stack](https://img.shields.io/badge/MERN-Stack-000000?style=for-the-badge&logo=mongodb&logoColor=green)
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
