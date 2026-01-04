@@ -1,4 +1,4 @@
-# 🔄 Skill Sw
+# 🔄 Skill Swap
 
 ![MERN Stack](https://img.shields.io/badge/MERN-Stack-000000?style=for-the-badge&logo=mongodb&logoColor=green)
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
